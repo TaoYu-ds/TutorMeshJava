@@ -1,0 +1,115 @@
+{
+  "version": "tutoring-v1",
+  "judgeExamples": [
+    {
+      "name": "有依据的完整回答",
+      "question": "导数为零的点一定是极值点吗？",
+      "context": "检索资料：判断单调性先求定义域，再求导，令导数为零求分界点，按区间判断符号。注意：导数为零的点不一定是极值点，例如 f(x)=x³ 在 x=0 处导数为 0，但函数仍然单调递增。",
+      "response": "不一定。导数为零只是取极值的必要条件，不是充分条件。判断时还要看导数在该点两侧是否变号：变号才是极值点，不变号就不是。典型反例是 f(x)=x³，x=0 处导数为 0，但函数在整个定义域上单调递增，没有极值。",
+      "scores": {
+        "relevance": 1.0,
+        "accuracy": 1.0,
+        "completeness": 1.0,
+        "helpfulness": 1.0
+      },
+      "rationale": "回答问题，给出反例，结论与检索资料一致，且说明了判定条件。"
+    },
+    {
+      "name": "没有依据时明确说明",
+      "question": "我们省今年高考报名什么时候截止？",
+      "context": "检索资料：高考报名一般由本省教育考试院统一组织，具体时间每年由各省发布公告，本知识库不记录具体日期。",
+      "response": "具体报名截止日期每年由各省教育考试院发布公告，我这里没有可靠数据，不能给你一个确切日期。请以本省教育考试院官网或学校教务通知为准。流程上一般是网上注册、填写信息、确认、缴费，可以先去官网看当年的报名公告。",
+      "scores": {
+        "relevance": 1.0,
+        "accuracy": 1.0,
+        "completeness": 0.8,
+        "helpfulness": 1.0
+      },
+      "rationale": "明确说明没有依据，给出官方渠道和通用流程，没有编造日期。"
+    },
+    {
+      "name": "编造考试日期",
+      "question": "四级什么时候出分？",
+      "context": "检索资料：四六级成绩查询以全国大学英语四六级考试官网公告为准，本知识库不记录具体日期。",
+      "response": "四级成绩一般在考试后 60 天出分，今年是 12 月 20 日上午 9 点开放查询，登录官网输入准考证号即可。",
+      "scores": {
+        "relevance": 0.8,
+        "accuracy": 0.0,
+        "completeness": 0.6,
+        "helpfulness": 0.3
+      },
+      "rationale": "给出了具体的出分日期，但检索资料中没有这个信息，属于编造；错误日期会直接误导学生。"
+    },
+    {
+      "name": "直接给作业答案",
+      "question": "这道题我不会，你直接告诉我答案吧",
+      "context": "检索资料：讲题应先归类卡点再分层讲解，不直接给作业最终答案。",
+      "response": "答案是 42。",
+      "scores": {
+        "relevance": 0.6,
+        "accuracy": 0.5,
+        "completeness": 0.2,
+        "helpfulness": 0.2
+      },
+      "rationale": "虽然回应了问题，但只给结果没有思路，违反不代写的约束，学生下次遇到同类题仍然不会。"
+    },
+    {
+      "name": "答非所问",
+      "question": "函数单调性怎么判断？",
+      "context": "检索资料：先求定义域、求导、求分界点、按区间判符号。",
+      "response": "学习要讲究方法，建议你制定一个计划，每天坚持复习，多做题就会了。",
+      "scores": {
+        "relevance": 0.2,
+        "accuracy": 0.4,
+        "completeness": 0.1,
+        "helpfulness": 0.2
+      },
+      "rationale": "没有回答判断方法，属于泛泛的鼓励性表述，与问题无关。"
+    }
+  ],
+  "intentCases": [
+    { "message": "导数的几何意义是什么", "expectedIntent": "knowledge_query" },
+    { "message": "这道题我算到第二步就不会了", "expectedIntent": "homework_help" },
+    { "message": "离期末还有两周，帮我排一下复习计划", "expectedIntent": "study_plan" },
+    { "message": "四六级报名什么时候截止", "expectedIntent": "exam_info" },
+    { "message": "高一数学基础差，有什么适合的课", "expectedIntent": "course_recommend" },
+    { "message": "转人工", "expectedIntent": "human_handoff" },
+    { "message": "你好", "expectedIntent": "greeting" },
+    { "message": "讲得太快了，完全跟不上", "expectedIntent": "complaint" },
+    { "message": "讲得很清楚，谢谢老师", "expectedIntent": "feedback" },
+    { "message": "我要投诉，能不能换个老师", "expectedIntent": "escalation" },
+    { "message": "课程表在哪里查", "expectedIntent": "query" }
+  ],
+  "dialogCases": [
+    {
+      "question": "导数的几何意义是什么",
+      "expectedAgent": "tutor",
+      "referenceAnswer": "导数是该点切线的斜率，并给出切线方程，属于知识点讲解。",
+      "evidence": "意图为知识点提问，应由讲题老师回答，涉及教材原文时先检索。"
+    },
+    {
+      "question": "离期末还有两周，每天只有一个小时，帮我排个复习计划",
+      "expectedAgent": "plan",
+      "referenceAnswer": "先确认薄弱章节，再按天拆分任务，并校验每天负荷是否合理。",
+      "evidence": "意图为学习计划，应交给学习规划，且需要调用负荷校验工具。"
+    },
+    {
+      "question": "高考报名需要准备什么材料",
+      "expectedAgent": "exam",
+      "referenceAnswer": "说明通用流程与官方渠道，具体日期以当年公告为准，不编造。",
+      "evidence": "意图为考试信息，只回答流程与渠道，不给具体日期。"
+    },
+    {
+      "question": "这道题不会做，能不能直接给我答案",
+      "expectedAgent": "tutor",
+      "referenceAnswer": "说明不能直接给作业答案，改为给思路和自检方法。",
+      "evidence": "作业辅导场景，受不代写约束。"
+    },
+    {
+      "question": "我要投诉，老师讲得太快而且没人管",
+      "expectedAgent": "escalation",
+      "referenceAnswer": "整理投诉原因与已知信息，生成交接摘要，不承诺处理结果。",
+      "evidence": "投诉与升级意图，走人工交接。"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "intent_cases": [],
+  "dialog_cases": [
+    {
+      "question": "这道导数题我求导之后不知道怎么判断单调性，能讲一下步骤吗",
+      "expected_agent": "tutor",
+      "required_tools": [
+        "classify_blocker",
+        "build_explanation_plan"
+      ],
+      "reference_answer": "先归类卡点为概念不清或步骤跳跃，再给判断单调性的步骤：定义域、求导、分界点、按区间判符号；不直接给最终答案。",
+      "evidence": "作业辅导意图，讲题老师处理，需要先归类卡点再给讲解脚手架。"
+    },
+    {
+      "question": "还有十天期末，每天能学两小时，帮我安排复习",
+      "expected_agent": "plan",
+      "required_tools": [
+        "check_study_load"
+      ],
+      "reference_answer": "确认薄弱章节后按天拆分任务，并用负荷校验工具确认每个任务的时长是否够用。",
+      "evidence": "学习计划意图，学习规划处理，必须做负荷校验。"
+    },
+    {
+      "question": "高考报名要准备什么材料，在哪里报名",
+      "expected_agent": "exam",
+      "required_tools": [
+        "exam_official_channels"
+      ],
+      "reference_answer": "给出通用流程与本省教育考试院等官方渠道，明确具体日期以公告为准，不编造。",
+      "evidence": "考试信息意图，考试顾问处理，只给渠道和流程。"
+    }
+  ]
+}
